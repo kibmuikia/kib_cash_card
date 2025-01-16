@@ -30,16 +30,16 @@ fun HomeScreen(
         topBar = {},
         content = { innerPadding ->
             Surface(
-                modifier = modifier
+                modifier = Modifier
                     .padding(innerPadding)
                     .padding(vertical = 16.dp, horizontal = 16.dp),
             ) {
-                Column(modifier = modifier) {
-                    ShowCreditCard(modifier = modifier)
+                Column(modifier = Modifier) {
+                    ShowCreditCard()
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    ShowGreetings(modifier = modifier)
+                    ShowGreetings()
                 }
             }
         },
