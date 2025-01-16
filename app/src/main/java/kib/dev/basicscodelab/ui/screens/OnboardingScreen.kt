@@ -1,4 +1,4 @@
-package kib.dev.basicscodelab
+package kib.dev.basicscodelab.ui.screens
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement

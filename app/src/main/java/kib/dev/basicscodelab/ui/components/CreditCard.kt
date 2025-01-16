@@ -44,7 +44,7 @@ fun CreditCard(
         modifier = modifier
             .fillMaxWidth()
             .height(200.dp)
-            .clip(RoundedCornerShape(15.dp))
+            .clip(RoundedCornerShape(16.dp))
             .clickable { onFlip() },
         color = MaterialTheme.colorScheme.primary
     ) {
