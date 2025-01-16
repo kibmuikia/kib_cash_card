@@ -1,8 +1,12 @@
 package kib.dev.basicscodelab.ui.components
 
 import android.content.res.Configuration
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -40,15 +45,26 @@ fun CreditCard(
     modifier: Modifier = Modifier,
     onFlip: () -> Unit
 ) {
-    Surface(
+    val rotation = animateFloatAsState(
+        targetValue = if (cardData.isFlipped) 180f else 0f,
+        animationSpec = tween(durationMillis = 500) // Animation duration
+    )
+
+    Box(
         modifier = modifier
             .fillMaxWidth()
             .height(200.dp)
+            .graphicsLayer {
+                rotationY = rotation.value // Rotate around the Y-axis
+                cameraDistance = 12f * density // Adjust for perspective
+            }
             .clip(RoundedCornerShape(16.dp))
-            .clickable { onFlip() },
-        color = MaterialTheme.colorScheme.primary
+            .clickable { onFlip() }
+            .background(color = MaterialTheme.colorScheme.primary),
+        contentAlignment = Alignment.Center,
     ) {
-        if (!cardData.isFlipped) {
+        // Show the front or back of the card based on rotation
+        if (rotation.value <= 90f) {
             CreditCardFront(cardData)
         } else {
             CreditCardBack(cardData)
